@@ -57,6 +57,14 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
             let navigationController = segue.destination as! UINavigationController
             let controller = navigationController.topViewController as! AddItemViewController
             controller.delegate = self
+        } else if segue.identifier == "EditItem" {
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! AddItemViewController
+            controller.delegate = self
+            
+            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                controller.itemToEdit = items[indexPath.row]
+            }
         }
     }
 
@@ -90,10 +98,12 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
     }
     
     func configureCheckmarkFor(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
+        let label = cell.viewWithTag(1001) as! UILabel
+        
         if item.checked {
-            cell.accessoryType = .checkmark
+            label.text = "✔️"
         } else {
-            cell.accessoryType = .none
+            label.text = ""
         }
     }
     
@@ -117,4 +127,15 @@ class ChecklistViewController: UITableViewController, AddItemViewControllerDeleg
         
         dismiss(animated: true, completion: nil)
     }
+    
+    func addItemViewController(_ controller: AddItemViewController, didFinishEditingItem item: ChecklistItem) {
+        if let index = items.index(where: {$0 === item}) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                configureTextFor(cell: cell, withChecklistItem: item)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
