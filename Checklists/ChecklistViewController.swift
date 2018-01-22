@@ -40,6 +40,9 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         items.append(row4item)
         
         super.init(coder: aDecoder)
+        
+        print("Documents folder path is \(documentsDirectory())")
+        print("Data file path is \(dataFilePath())")
     }
 
     override func viewDidLoad() {
@@ -88,6 +91,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
             configureCheckmarkFor(cell: cell, withChecklistItem: item)
         }
         tableView.deselectRow(at: indexPath, animated: true)
+        saveCheckListItems()
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
@@ -95,6 +99,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
 
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
+        saveCheckListItems()
     }
     
     func configureCheckmarkFor(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
@@ -126,6 +131,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         tableView.insertRows(at: indexPaths, with: .automatic)
         
         dismiss(animated: true, completion: nil)
+        saveCheckListItems()
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem) {
@@ -136,6 +142,25 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
             }
         }
         dismiss(animated: true, completion: nil)
+        saveCheckListItems()
+    }
+    
+    func documentsDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        
+        return paths[0]
+    }
+    
+    func dataFilePath() -> String {
+        return (documentsDirectory() as NSString).appendingPathComponent("Checklists.plist")
+    }
+    
+    func saveCheckListItems() {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(items, forKey: "ChecklistItems")
+        archiver.finishEncoding()
+        data.write(toFile: dataFilePath(), atomically: true)
     }
     
 }
