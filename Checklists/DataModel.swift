@@ -42,6 +42,7 @@ class DataModel {
                 let unarchiver = NSKeyedUnarchiver(forReadingWith: data as Data)
                 lists = unarchiver.decodeObject(forKey: "Checklists") as! [Checklist]
                 unarchiver.finishDecoding()
+                sortChecklists()
             }
         }
     }
@@ -72,6 +73,10 @@ class DataModel {
         set {
             UserDefaults.standard.set(newValue, forKey: "ChecklistIndex")
         }
+    }
+    
+    func sortChecklists() {
+        lists.sort(by: { checklist1, checklist2 in return checklist1.name.localizedStandardCompare(checklist2.name) == .orderedAscending })
     }
     
 }

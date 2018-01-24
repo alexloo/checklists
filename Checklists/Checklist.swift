@@ -28,4 +28,12 @@ class Checklist: NSObject, NSCoding {
         aCoder.encode(items, forKey: "Items")
     }
     
+    func countUncheckedItems() -> Int {
+        var count = 0
+        for item in items where !item.checked {
+            count += 1
+        }
+        return count
+    }
+    
 }
