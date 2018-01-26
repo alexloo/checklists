@@ -12,7 +12,7 @@ class ChecklistItem: NSObject, NSCoding {
     var text = ""
     var checked = false
     
-    var date = Date()
+    var dueDate = Date()
     var shouldRemind = false
     var itemID: Int
 
@@ -23,7 +23,7 @@ class ChecklistItem: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(text, forKey: "Text")
         aCoder.encode(checked, forKey: "Checked")
-        aCoder.encode(date, forKey: "Date")
+        aCoder.encode(dueDate, forKey: "Date")
         aCoder.encode(shouldRemind, forKey: "ShouldRemind")
         aCoder.encode(itemID, forKey: "ItemID")
     }
@@ -31,7 +31,7 @@ class ChecklistItem: NSObject, NSCoding {
     required init?(coder aDecoder: NSCoder) {
         text = aDecoder.decodeObject(forKey: "Text") as! String
         checked = aDecoder.decodeBool(forKey: "Checked")
-        date = aDecoder.decodeObject(forKey: "Date") as! Date
+        dueDate = aDecoder.decodeObject(forKey: "Date") as! Date
         shouldRemind = aDecoder.decodeBool(forKey: "ShouldRemind")
         itemID = aDecoder.decodeInteger(forKey: "ItemID")
         super.init()
