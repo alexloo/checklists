@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     let dataModel = DataModel()
@@ -48,6 +49,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func saveData() {
         dataModel.saveChecklists()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("didReceiveLocalNotification \(notification)")
     }
     
 }
