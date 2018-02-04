@@ -123,17 +123,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7Dg-FD-K6T">
+                                                    <rect key="frame" x="312" y="6" width="49" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remind Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKe-zG-wgo">
-                                                    <rect key="frame" x="16" y="12" width="86" height="21"/>
+                                                    <rect key="frame" x="16" y="11" width="86" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7Dg-FD-K6T">
-                                                    <rect key="frame" x="312" y="6" width="49" height="31"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </switch>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -182,6 +182,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="k98-Yh-0Q3" id="UW6-Za-BS0"/>
+                        <outlet property="datePickerCell" destination="utc-Si-GpM" id="upW-tE-1xo"/>
                         <outlet property="doneBarButton" destination="PpJ-S5-zwt" id="bTi-q6-hlq"/>
                         <outlet property="dueDateLabel" destination="ECs-rP-gSz" id="NQp-YR-meR"/>
                         <outlet property="shouldRemindSwitch" destination="7Dg-FD-K6T" id="DRv-zg-OFs"/>
@@ -189,6 +191,31 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHG-ID-baN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="utc-Si-GpM">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="utc-Si-GpM" id="gZK-Yr-Hlu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="161.5"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="k98-Yh-0Q3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="539415403.04671597">
+                                    <!--2018-02-04 05:36:43 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateChangedWithDatePicker:" destination="1c9-xd-eXM" eventType="valueChanged" id="IZZ-Eh-9HK"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="k98-Yh-0Q3" secondAttribute="trailing" id="WIs-V5-8RP"/>
+                            <constraint firstItem="k98-Yh-0Q3" firstAttribute="top" secondItem="gZK-Yr-Hlu" secondAttribute="top" id="XN1-ch-ETk"/>
+                            <constraint firstAttribute="bottom" secondItem="k98-Yh-0Q3" secondAttribute="bottom" id="eUE-eE-uyO"/>
+                            <constraint firstItem="k98-Yh-0Q3" firstAttribute="leading" secondItem="gZK-Yr-Hlu" secondAttribute="leading" id="f9H-hZ-jfV"/>
+                        </constraints>
+                    </tableViewCellContentView>
+                </tableViewCell>
             </objects>
             <point key="canvasLocation" x="2476" y="150.67466266866569"/>
         </scene>
