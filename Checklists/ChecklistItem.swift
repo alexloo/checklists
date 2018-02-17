@@ -44,9 +44,15 @@ class ChecklistItem: NSObject, NSCoding {
     }
     
     func scheduleNotification() {
-        print("Running scheduleNotificaiton()")
+        let existingNotification = notificationForThisItem()
+        if let notification = existingNotification {
+            print("Found an existing notification \(notification)")
+            let center = UNUserNotificationCenter.current()
+            center.removePendingNotificationRequests(withIdentifiers: [String(itemID)])
+            center.removeDeliveredNotifications(withIdentifiers: [String(itemID)])
+        }
+        
         if shouldRemind && dueDate.compare(Date()) != .orderedAscending {
-            print("Creating a notification.")
             let center = UNUserNotificationCenter.current()
             
             let content = UNMutableNotificationContent()
@@ -64,5 +70,18 @@ class ChecklistItem: NSObject, NSCoding {
                 }
             })
         }
+    }
+    
+    func notificationForThisItem() -> UNNotificationRequest? {
+        let center = UNUserNotificationCenter.current()
+        var requestToReturn: UNNotificationRequest?
+        center.getPendingNotificationRequests(completionHandler: { requests in
+            for request in requests {
+                if request.identifier == String(self.itemID) {
+                    requestToReturn = request
+                }
+            }
+        })
+        return requestToReturn
     }
 }
