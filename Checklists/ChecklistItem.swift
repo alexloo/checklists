@@ -77,8 +77,12 @@ class ChecklistItem: NSObject, NSCoding {
         var requestToReturn: UNNotificationRequest?
         center.getPendingNotificationRequests(completionHandler: { requests in
             for request in requests {
+                print("request identifier is \(request.identifier)")
+                print("this item's identifier is \(self.itemID)")
                 if request.identifier == String(self.itemID) {
+                    print("Will be returning a request")
                     requestToReturn = request
+                    return
                 }
             }
         })
